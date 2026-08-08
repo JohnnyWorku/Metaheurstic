@@ -2,7 +2,7 @@
 
 This is a small, function-based starter repository. The infrastructure provides
 the three test problems, fair objective-evaluation counting, CSV logging, and
-plots. Interns implement the algorithms and make the algorithm-design choices.
+plots. Implement the algorithms and make the algorithm-design choices.
 
 ## Install
 
@@ -76,7 +76,7 @@ iteration or generation counter if it needs one.
 
 ## What interns choose and implement
 
-Interns implement random candidate creation, selection, reproduction, joining
+Implement random candidate creation, selection, reproduction, joining
 or survivor replacement, boundary handling, and all algorithm-specific
 hyperparameters. Examples of choices discussed in training include truncation,
 tournament or roulette selection; Gaussian or bounded-uniform changes;
