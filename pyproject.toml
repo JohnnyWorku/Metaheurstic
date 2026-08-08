@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metaheuristics-assignment"
+version = "0.1.0"
+description = "Simple starter code for the Optimization Using Metaheuristics assignment"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.24",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.4"]
+
+[tool.setuptools]
+py-modules = [
+    "benchmarks",
+    "experiment",
+    "random_search",
+    "hill_climbing",
+    "simulated_annealing",
+    "evolution_strategy",
+    "genetic_algorithm",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
