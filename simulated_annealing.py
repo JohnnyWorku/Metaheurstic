@@ -6,7 +6,8 @@ from experiment import run_experiment
 BENCHMARKS_TO_RUN = ["rosenbrock"]
 SEEDS = [0]  # Pilot: [0, 1, 2, 3, 4]. Final: range(100, 120).
 MAX_EVALUATIONS = 20_000
-# Recommended Hyperparameters
+
+# recommended Hyperparameters
 PARAMETERS = {
     "initial_temperature": 1.0,
     "min_temperature": 1e-4,
