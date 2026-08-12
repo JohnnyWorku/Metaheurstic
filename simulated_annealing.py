@@ -14,7 +14,6 @@ PARAMETERS = {
     "sigma": 0.02,     # mutation step size (as fraction of domain range)
 }
 
-
 def simulated_annealing(
     objective,
     lower_bound,
