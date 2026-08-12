@@ -3,8 +3,8 @@
 import numpy as np
 from experiment import run_experiment
 
-BENCHMARKS_TO_RUN = ["rosenbrock"]
-SEEDS = [119]  # Pilot: [0, 1, 2, 3, 4]. Final: range(100, 120).
+BENCHMARKS_TO_RUN = ["sphere", "rastrigin", "rosenbrock"]
+SEEDS = [0]  # Pilot: [0, 1, 2, 3, 4]. Final: range(100, 120).
 MAX_EVALUATIONS = 20_000
 
 # Recommended Hyperparameters

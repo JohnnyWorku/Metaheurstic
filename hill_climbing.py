@@ -4,7 +4,7 @@ from experiment import run_experiment
 import numpy as np
 
 # For a quick test, choose one benchmark and one seed, then run this file.
-BENCHMARKS_TO_RUN = ["rosenbrock"]
+BENCHMARKS_TO_RUN = ["sphere", "rastrigin", "rosenbrock"]
 SEEDS = [0]  # Pilot: [0, 1, 2, 3, 4]. Final: range(100, 120).
 MAX_EVALUATIONS = 20_000
 
