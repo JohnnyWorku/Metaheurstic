@@ -58,14 +58,14 @@ def evolution_strategy(
         offspring_fitness = np.zeros(current_lambda)
 
         for i in range(current_lambda):
-            # Uniformly select a parent from the mu parents
+            # uniformly select a parent from the mu parents
             parent_idx = rng.integers(0, mu)
             p_x = parents_x[parent_idx]
             p_sigma = parents_sigma[parent_idx]
 
             # log-normal mutation for step size: sigma' = sigma * exp(tau * N(0,1))
             sigma_prime = p_sigma * np.exp(tau * rng.normal(0, 1))
-            sigma_prime = np.maximum(sigma_prime, 1e-8)  # Prevent numerical underflow
+            sigma_prime = np.maximum(sigma_prime, 1e-8)  # prevent numerical underflow
 
             # gaussian mutation for object variables (Slide 29)
             x_prime = p_x + sigma_prime * rng.normal(0, 1, size=dimension)
@@ -81,18 +81,30 @@ def evolution_strategy(
             offspring_fitness[i] = objective(offspring_x[i])
             evaluations_used += 1
 
-            # Update best seen solution
+            # update best seen solution
             if offspring_fitness[i] < best_fitness:
                 best_fitness = offspring_fitness[i]
                 best_x = offspring_x[i].copy()
 
-        # truncation selection: pick the best mu individuals strictly from the offspring pool
-        sorted_indices = np.argsort(offspring_fitness)
-        selected_indices = sorted_indices[:min(mu, current_lambda)]
+        # # truncation selection: pick the best mu individuals strictly from the offspring pool
+        # sorted_indices = np.argsort(offspring_fitness)
+        # selected_indices = sorted_indices[:min(mu, current_lambda)]
 
-        parents_x = offspring_x[selected_indices]
-        parents_sigma = offspring_sigma[selected_indices]
-        parents_fitness = offspring_fitness[selected_indices]
+        # parents_x = offspring_x[selected_indices]
+        # parents_sigma = offspring_sigma[selected_indices]
+        # parents_fitness = offspring_fitness[selected_indices]
+        
+        # mu + lambda selection: combine parents and offspring, then select the best mu individuals
+        combined_x = np.vstack([parents_x, offspring_x])
+        combined_sigma = np.vstack([parents_sigma, offspring_sigma])
+        combined_fitness = np.concatenate([parents_fitness, offspring_fitness])
+
+        sorted_indices = np.argsort(combined_fitness)
+        selected_indices = sorted_indices[:mu]
+
+        parents_x = combined_x[selected_indices]
+        parents_sigma = combined_sigma[selected_indices]
+        parents_fitness = combined_fitness[selected_indices]
 
     return best_x, best_fitness
 
