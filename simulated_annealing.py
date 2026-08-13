@@ -11,7 +11,7 @@ MAX_EVALUATIONS = 20_000
 PARAMETERS = {
     "initial_temperature": 1.0,
     "min_temperature": 1e-4,
-    "alpha": 0.99954,  # smooth cooling decay across 20,000 evaluations
+    "alpha": 0.99954,  # smooth cooling decay across 20,000 evaluations ([Tmin / T0]^(1/max_evaluations))
     "sigma": 0.02,     # mutation step size (as fraction of domain range)
 }
 
@@ -68,7 +68,7 @@ def simulated_annealing(
             # strictly better or equal candidate -> Always accept
             accept = True
         else:
-            # worse candidate -> cccept probabilistically based on temperature
+            # worse candidate -> accept probabilistically based on temperature
             # clamp exponent to prevent underflow overflow warnings
             exponent = -delta_E / max(T, 1e-12)
             p_accept = np.exp(np.clip(exponent, -500, 0))
