@@ -12,7 +12,7 @@ MAX_EVALUATIONS = 20_000
 PARAMETERS = {
     "sigma": 0.05,            # step size scale relative to domain range
     "patience": 200,          # steps without improvement before triggering a restart
-    "neighbors_per_step": 1,  # number of local neighbor samples evaluated per iteration
+    # "neighbors_per_step": 1,  # number of local neighbor samples evaluated per iteration
 }
 
 
