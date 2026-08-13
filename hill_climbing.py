@@ -58,8 +58,8 @@ def hill_climbing(
         # local exploitation
         while evaluations < max_evaluations and no_improvement_counter < patience:
             # generate a candidate neighbor via Gaussian mutation
-            neighbour = rng.normal(0.0, sigma, size=dimension) * domain_range
-            candidate_x = current_x + neighbour
+            noise = rng.normal(0.0, sigma, size=dimension) * domain_range
+            candidate_x = current_x + noise
 
             # boundary handling: clip candidate to bounds
             candidate_x = np.clip(candidate_x, lb, ub)
@@ -68,7 +68,7 @@ def hill_climbing(
             candidate_val = objective(candidate_x)
             evaluations += 1
 
-            # strict minimization check (greedy acceptance)
+            # strict minimization check
             if candidate_val < current_val:
                 current_x = candidate_x
                 current_val = candidate_val
