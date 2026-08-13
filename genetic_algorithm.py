@@ -27,7 +27,7 @@ def genetic_algorithm(
     max_evaluations,
     **parameters,
 ):
-    # extract hyperparameters with sensible defaults
+    # hyperparameters
     pop_size = parameters.get("pop_size", 50)
     tournament_size = parameters.get("tournament_size", 3)
     crossover_prob = parameters.get("crossover_prob", 0.8)
@@ -58,7 +58,7 @@ def genetic_algorithm(
     best_x = np.copy(population[best_idx])
     best_val = fitness[best_idx]
 
-    # helper Function: Tournament Selection
+    # helper Function: tournament selection
     def select_parent():
         # pick k random indices from population
         candidates = rng.choice(pop_size, size=tournament_size, replace=False)
@@ -66,7 +66,7 @@ def genetic_algorithm(
         winner = candidates[np.argmin(fitness[candidates])]
         return population[winner]
 
-    # 2. main Generational Loop
+    # main generational loop
     while evaluations < max_evaluations:
         new_population = []
         
@@ -80,24 +80,24 @@ def genetic_algorithm(
             parent1 = select_parent()
             parent2 = select_parent()
 
-            # --- crossover phase (arithmetic blend crossover) ---
+            # crossover phase (arithmetic blend crossover)
             if rng.uniform(0.0, 1.0) < crossover_prob:
                 gamma = rng.uniform(0.0, 1.0, size=dimension)
                 offspring = gamma * parent1 + (1.0 - gamma) * parent2
             else:
                 offspring = np.copy(parent1)
 
-            # --- mutation phase (gaussian mutation) ---
+            # mutation phase (gaussian mutation)
             mutation_mask = rng.uniform(0.0, 1.0, size=dimension) < mutation_prob
             if np.any(mutation_mask):
                 noise = rng.normal(0.0, sigma, size=dimension) * domain_range
-                offspring += mutation_mask * noise
+                offspring += mutation_mask * noise   # multiply by mask (0 - false and 1 - true) to apply mutation only to selected genes
 
             # boundary handling: clip to feasible domain bounds
             offspring = np.clip(offspring, lb, ub)
             new_population.append(offspring)
 
-        # Truncate if excess individuals were generated
+        # truncate if excess individuals were generated
         population = np.array(new_population[:pop_size])
 
         # evaluate the new generation
