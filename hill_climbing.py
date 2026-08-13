@@ -9,7 +9,11 @@ SEEDS = [0]  # Pilot: [0, 1, 2, 3, 4]. Final: range(100, 120).
 MAX_EVALUATIONS = 20_000
 
 # Add your chosen hyperparameters here.
-PARAMETERS = {}
+PARAMETERS = {
+    "sigma": 0.05,            # step size scale relative to domain range
+    "patience": 200,          # steps without improvement before triggering a restart
+    "neighbors_per_step": 1,  # number of local neighbor samples evaluated per iteration
+}
 
 
 def hill_climbing(
