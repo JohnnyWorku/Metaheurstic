@@ -7,8 +7,13 @@ BENCHMARKS_TO_RUN = ["sphere", "rastrigin", "rosenbrock"]
 SEEDS = [0]  # Pilot: [0, 1, 2, 3, 4]. Final: range(100, 120).
 MAX_EVALUATIONS = 20_000
 
-# Algorithm Hyperparameters based on slides 24–25 & 29
-PARAMETERS = {}
+# hyperparameters
+PARAMETERS = {
+    "mu": 15,            # number of parents chosen per generation
+    "lambda_": 100,      # number of offspring generated per generation (lambda ≈ 7 * mu)
+    "sigma_init": 0.5,   # initial mutation step size (standard deviation)
+    "tau": None,         # self-adaptation learning rate (calculated dynamically if None)
+}
 
 
 def evolution_strategy(
